@@ -12,7 +12,13 @@ based on its size it can also differentiate among the price, meaning that if the
 product, one of small size( of price x) and the other of larger size( of price 2x) then it will successfully
 recognize them and add the price to the billing system accordingly.
 
+## Libraries to be installed:
 
+For this project to install them use the following pip command:
+
+pip install -r requirements.txt
+
+All important packages are present in this file
 
 
 Incase imageAI does not install directly, the following method can be used.
@@ -21,7 +27,7 @@ pip install https://github.com/OlafenwaMoses/ImageAI/releases/download/2.0.2/ima
 For full reference:
 https://medium.com/@guymodscientist/image-prediction-with-10-lines-of-code-3266f4039c7a
 
-### This project has been trained on a model named model90.h5. The model can be downloaded from this link
+### This project has been trained on a model named model90.h5. The model and the dataset can be downloaded from this link
 
 https://drive.google.com/drive/folders/1ZexrvUSFj9U35EDm5jf0Jy4wtYobdmd2?usp=sharing 
 
@@ -42,6 +48,8 @@ It is trained on the dataset of 14 objects which are:
 13. sunscreen
 14. table_salt
 
+#### Mongo Database has been used
+You can configure your mongo database using pymongo 
 
 
 

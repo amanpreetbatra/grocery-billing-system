@@ -17,12 +17,9 @@ def ini_ip(ipx):
 
 
 def database(shortcode):
-    m = list(col.find({"shortcode":shortcode}))
-    data = { "name" : "ayur",
-             "price": "20"}
+    x = {"shortcode": shortcode}
+    m = list(col.find(x))
+    data = {'shortcode': m[0]['shortcode'], 'name': m[0]['prod_name'], 'price': m[0]['price']}
 
-    data = json.dumps(data)
-
-    return data
-
+    return json.dumps(data)
 

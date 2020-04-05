@@ -38,8 +38,8 @@ div{
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background-color: rgba(0,0,0,0.9); /* White background with opacity */
-	background-image: url('https://loading.io/spinners/harmony/index.harmony-taiji-spinner.svg');
+	background-color: rgba(0,0,0,0); /* White background with opacity */
+	background-image: url("static/spinner.svg");
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 25%;
@@ -130,8 +130,8 @@ function fetchProductDetails(quantity = 1){
 		type: 'POST',
 		url: "http://127.0.0.1:5000/detect",
 		success: function(response){
-			console.log(response);
-			x = JSON.parse(response);
+
+			let x = JSON.parse(response);
 			name = x['name'];
 			price = x['price'];
 			addItem(name,quantity,price);

@@ -1,15 +1,18 @@
 from urllib import request as rq
 from io import BytesIO
 import os, sys, warnings
+IPaddress = ""
+from werkzeug.utils import secure_filename
+
 from views import database,ini_ip
 import json
 from PIL import Image
-from werkzeug.utils import secure_filename
+
 from imageai.Prediction.Custom import CustomImagePrediction
 
 if not sys.warnoptions:
     warnings.simplefilter("ignore")
-from flask import Flask, request, send_file, render_template
+from flask import Flask, request,  render_template
 
 
 execution_path = os.getcwd()
@@ -19,14 +22,15 @@ UPLOAD_FOLDER = 'UPLOAD_FOLDER'
 def detect():
     prediction = CustomImagePrediction()
     prediction.setModelTypeAsResNet()
-    prediction.setModelPath("model200.h5")
+    prediction.setModelPath(os.path.join("model200.h5"))
     prediction.setJsonPath("class1.json")
-    prediction.loadModel(num_objects=12)
+    prediction.loadModel(num_objects=14)
     predictions, probabilities = prediction.predictImage("UPLOAD_FOLDER/photo.jpg", result_count=1)
 
-    for eachPrediction, eachProbability in zip(predictions, probabilities):
-        item = eachPrediction
-
+    # for eachPrediction, eachProbability in zip(predictions, probabilities):
+    #     print(eachPrediction)
+    #     item = eachPrediction
+    item = database(predictions[0])
     return item
 
 
@@ -66,6 +70,7 @@ def upload_file():
 		'image/jpg': 'JPG'
 	}
 	URL = "http://" +IP+"/photo.jpg"
+	print(URL)
 	response = rq.urlopen(URL)
 	image_type = response.info().get('Content-Type')
 	try:
@@ -80,11 +85,10 @@ def upload_file():
 
 	filename = secure_filename(URL.rpartition('/')[-1])
 	img.save(os.path.join(app.config['UPLOAD_FOLDER'], filename), format=format)
-	short_code = detect()
-	response = database(short_code)
-	return response
+	print(img)
+	return detect()
 
 
 if __name__ == '__main__':
-	IPaddress = ""
-	app.run(debug=True)
+
+	app.run()
